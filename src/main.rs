@@ -7,31 +7,37 @@ fn main() {
     env_logger::init();
 
     // Configure window preferences
-    let width = dotenv::var("WIDTH").unwrap().parse::<u32>().unwrap_or(1024);
-    let height = dotenv::var("HEIGHT").unwrap().parse::<u32>().unwrap_or(768);
+    let width = dotenv::var("WIDTH")
+        .unwrap_or("1024".to_string())
+        .parse::<u32>()
+        .unwrap();
+    let height = dotenv::var("HEIGHT")
+        .unwrap_or("768".to_string())
+        .parse::<u32>()
+        .unwrap();
     let title = dotenv::var("TITLE").unwrap_or("SFML Window".to_string());
     let vsync = dotenv::var("VSYNC")
-        .unwrap()
+        .unwrap_or("false".to_string())
         .to_lowercase()
         .parse::<bool>()
-        .unwrap_or(false);
+        .unwrap();
     let framerate = dotenv::var("FRAMERATE")
-        .unwrap()
+        .unwrap_or("60".to_string())
         .parse::<u32>()
-        .unwrap_or(60);
+        .unwrap();
 
     let major_version = dotenv::var("MAJOR_VERSION")
-        .unwrap()
+        .unwrap_or("3".to_string())
         .parse::<u32>()
-        .unwrap_or(3);
+        .unwrap();
     let minor_version = dotenv::var("MINOR_VERSION")
-        .unwrap()
+        .unwrap_or("3".to_string())
         .parse::<u32>()
-        .unwrap_or(3);
+        .unwrap();
     let antialias = dotenv::var("ANTIALIAS")
-        .unwrap()
+        .unwrap_or("0".to_string())
         .parse::<u32>()
-        .unwrap_or(0);
+        .unwrap();
 
     // Configure OpenGL
     let mut context = ContextSettings::default();
@@ -67,7 +73,6 @@ fn main() {
             }
         }
         window.set_active(true);
-        
         unsafe {
             gl::ClearColor(0.0, 0.0, 0.3, 1.0);
             gl::Clear(gl::COLOR_BUFFER_BIT);
